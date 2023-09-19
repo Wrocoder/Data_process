@@ -1,0 +1,29 @@
+Notes:
+
+export AIRFLOW_HOME=~/PycharmProjects/ETL_Airflow
+or
+export AIRFLOW_HOME=$(pwd)
+or
+manually in IDE
+
+check
+echo $AIRFLOW_HOME
+
+python 3.8
+airflow 2.7.1
+pip install "apache-airflow==2.7.1" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.1/constraints-$(python --version | cut -d " " -f 2 | cut -d "." -f 1-2).txt"
+
+~
+pip install apache-airflow[cncf.kubernetes]
+~
+airflow db init
+
+airflow dags list
+
+airflow info
+
+
+RUN:
+airflow scheduler
+airflow webserver
+Go to -> http://0.0.0.0:8080/dags/
