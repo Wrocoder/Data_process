@@ -1,0 +1,6 @@
+home: /home/###/PycharmProjects/Data_process
+universityData:
+  url: http://universities.hipolabs.com/search?country=
+  loadPath: /PycharmProjects/Data_process/sample/
+  name: university
+
