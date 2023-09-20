@@ -16,7 +16,6 @@ pd.options.display.width = 2000
 @timing_and_size
 def geo_main():
     CONFIG = get_config()
-    LOGGER.info(CONFIG)
     url = CONFIG['geoData']['initial']['url']
     params = {'access_key': CONFIG['geoData']['initial']['access_key']}
     pipeline = APIScraper(url, CONFIG['geoData']['name'], params)

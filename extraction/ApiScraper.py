@@ -1,6 +1,6 @@
 import pandas as pd
 import requests
-from country_list import countries_for_language
+from pyspark.sql import DataFrame
 
 from logger import LOGGER
 
@@ -15,7 +15,7 @@ class APIScraper:
     - name (str): The name of the scraper.
     """
 
-    def __init__(self, url, name, params=None):
+    def __init__(self, url: str, name: str, params=None) -> None:
         """
         Initializes an APIScraper instance.
 
@@ -28,7 +28,7 @@ class APIScraper:
         self.df = None
         self.name = name
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Returns a string representation of the APIScraper instance.
 
@@ -54,20 +54,10 @@ class APIScraper:
             LOGGER.error('Too many redirects')
         except requests.exceptions.RequestException as e:
             LOGGER.fatal(f'Exception: {e}')
-            # catastrophic error. bail.
+            # catastrophic error.
             raise SystemExit(e)
 
-    @staticmethod
-    def get_countries():
-        """
-        Retrieves a dictionary of countries.
-
-        Returns:
-        dict: A dictionary of countries.
-        """
-        return dict(countries_for_language('en'))
-
-    def run(self):
+    def run(self) -> DataFrame:
         """
         Runs the scraper to extract data from the API.
 
