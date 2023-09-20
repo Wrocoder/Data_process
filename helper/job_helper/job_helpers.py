@@ -30,10 +30,23 @@ def to_csv_and_load(df, file_name):
 
     :return: None
     """
-    df.to_csv(file_name, index=True)
+    df.to_csv(file_name, index=False)
 
 
 def add_ts_col_to_df(df):
+    """
+    Add timestamp columns to a DataFrame.
+
+    This function adds two new columns to the input DataFrame:
+    - 'today_ts': Contains the current timestamp.
+    - 'today_date': Contains the current date extracted from the timestamp.
+
+    Args:
+    - df (pd.DataFrame): The input DataFrame to which the columns will be added.
+
+    Returns:
+    pd.DataFrame: The modified DataFrame with the added columns.
+    """
     df['today_ts'] = pd.Timestamp.today()
     df['today_date'] = pd.to_datetime(df['today_ts'].dt.date)
     return df

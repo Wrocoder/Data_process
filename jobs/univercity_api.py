@@ -3,6 +3,7 @@ import os
 import pandas as pd
 
 from extraction.ApiScraper import APIScraper
+from helper.job_helper.decors import timing_and_size
 from helper.job_helper.job_helpers import get_config, to_csv_and_load, add_ts_col_to_df
 from logger import LOGGER
 
@@ -12,6 +13,7 @@ pd.options.display.max_rows = 200
 pd.options.display.width = 2000
 
 
+@timing_and_size
 def uni_main():
     countries = APIScraper.get_countries()
     CONFIG = get_config()
@@ -33,4 +35,5 @@ def uni_main():
 
 
 if __name__ == "__main__":
+    LOGGER.info("Starting process")
     uni_main()
