@@ -14,21 +14,16 @@ pd.options.display.width = 2000
 
 
 @timing_and_size
-def uni_main():
-    countries = APIScraper.get_countries()
+def geo_main():
     CONFIG = get_config()
     LOGGER.info(CONFIG)
-    df = pd.DataFrame()
-
-    for code, country in countries.items():
-        url = f"{CONFIG['universityData']['initial']['url']}{country}"
-        pipeline = APIScraper(url, CONFIG['universityData']['name'])
-        LOGGER.info(f'Processing {pipeline.__repr__()} data for {country}')
-        result_df = pipeline.run()
-        df = pd.concat([df, result_df], ignore_index=True)
-
-    name = CONFIG['universityData']['name']
-    home_path = f"{os.environ['HOME']}{CONFIG['universityData']['initial']['loadPath']}{name}/{name}.csv"
+    url = CONFIG['geoData']['initial']['url']
+    params = {'access_key': CONFIG['geoData']['initial']['access_key']}
+    pipeline = APIScraper(url, CONFIG['geoData']['name'], params)
+    LOGGER.info(f'Processing {pipeline.__repr__()}')
+    df = pipeline.run()
+    name = CONFIG['geoData']['name']
+    home_path = f"{os.environ['HOME']}{CONFIG['geoData']['initial']['loadPath']}{name}/{name}.csv"
     LOGGER.info(f'Loading data to: {home_path}')
     LOGGER.info(f'Count rows in dataframe: {df.count()[0]}')
     to_csv_and_load(add_ts_col_to_df(df), home_path)
@@ -36,4 +31,4 @@ def uni_main():
 
 if __name__ == "__main__":
     LOGGER.info("Starting process")
-    uni_main()
+    geo_main()

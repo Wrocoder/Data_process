@@ -32,7 +32,7 @@ def measure_memory_usage(func):
 
         # Print the top memory-consuming lines
         LOGGER.info(f"Memory usage of {func.__name__}:")
-        for stat in top_stats[:3]:
+        for stat in top_stats[:5]:
             LOGGER.info(stat)
 
         return result
