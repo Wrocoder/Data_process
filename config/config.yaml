@@ -1,6 +1,9 @@
 home: /home/###/PycharmProjects/Data_process
 universityData:
-  url: http://universities.hipolabs.com/search?country=
-  loadPath: /PycharmProjects/Data_process/sample/
   name: university
-
+  url: http://universities.hipolabs.com/search?country=
+  loadPath: /PycharmProjects/Data_process/data/initial/
+  stg:
+    format: csv
+    source: /home/###/PycharmProjects/Data_process/data/initial/university/university.csv
+    destination: /home/###/PycharmProjects/Data_process/data/stg/university/university.parquet
