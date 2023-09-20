@@ -2,20 +2,47 @@ import pandas as pd
 import requests
 from country_list import countries_for_language
 
-from helper.job_helper.decors import count_calls, timing_and_size
 from logger import LOGGER
 
 
 class APIScraper:
+    """
+    A class for scraping data from an API.
+
+    Attributes:
+    - url (str): The URL of the API.
+    - df (pd.DataFrame): The resulting DataFrame.
+    - name (str): The name of the scraper.
+    """
+
     def __init__(self, url, name):
+        """
+        Initializes an APIScraper instance.
+
+        Args:
+        - url (str): The URL of the API.
+        - name (str): The name of the scraper.
+        """
         self.url = url
         self.df = None
         self.name = name
 
     def __repr__(self):
+        """
+        Returns a string representation of the APIScraper instance.
+
+        Returns:
+        str: A string representation of the instance.
+        """
         return f'(\'{self.name}\')'
 
     def extract_via_api(self):
+        """
+        Extracts data from the API.
+
+        Returns:
+        requests.Response: The API response object.
+        """
         try:
             return requests.get(self.url)
         except requests.exceptions.Timeout:
@@ -31,11 +58,21 @@ class APIScraper:
 
     @staticmethod
     def get_countries():
+        """
+        Retrieves a dictionary of countries.
+
+        Returns:
+        dict: A dictionary of countries.
+        """
         return dict(countries_for_language('en'))
 
-    @count_calls
-    @timing_and_size
     def run(self):
+        """
+        Runs the scraper to extract data from the API.
+
+        Returns:
+        pd.DataFrame: The resulting DataFrame.
+        """
         article_text = self.extract_via_api()
         self.df = pd.DataFrame.from_dict(article_text.json())
         return self.df

@@ -7,7 +7,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 
 sys.path.append(f"{os.environ['HOME']}/PycharmProjects/Data_process")
-from jobs import univercity_api
+from jobs import univercity_api, univercity_stg
 # get the airflow.task logger
 task_logger = logging.getLogger("airflow.task")
 
@@ -35,5 +35,10 @@ with DAG(dag_id="dag_etl_university",
         python_callable=univercity_api.uni_main,
         dag=dag,
     )
+    t2 = PythonOperator(
+        task_id="csv_to_parquet_processing",
+        python_callable=univercity_stg.uni_main_stg,
+        dag=dag,
+    )
 
-    t1
+    t1 >> t2
