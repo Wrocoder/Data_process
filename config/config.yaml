@@ -1,9 +1,19 @@
 home: /home/###/PycharmProjects/Data_process
+
 universityData:
   name: university
-  url: http://universities.hipolabs.com/search?country=
-  loadPath: /PycharmProjects/Data_process/data/initial/
+  initial:
+    url: http://universities.hipolabs.com/search?country=
+    loadPath: /PycharmProjects/Data_process/data/initial/
   stg:
     format: csv
     source: /home/###/PycharmProjects/Data_process/data/initial/university/university.csv
     destination: /home/###/PycharmProjects/Data_process/data/stg/university/university.parquet
+
+geoData:
+  name: geo
+  initial:
+    url: http://api.countrylayer.com/v2/all
+    access_key: ###
+    loadPath: /PycharmProjects/Data_process/data/initial/
+

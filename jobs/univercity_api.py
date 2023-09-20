@@ -21,14 +21,14 @@ def uni_main():
     df = pd.DataFrame()
 
     for code, country in countries.items():
-        url = f"{CONFIG['universityData']['url']}{country}"
+        url = f"{CONFIG['universityData']['initial']['url']}{country}"
         pipeline = APIScraper(url, CONFIG['universityData']['name'])
         LOGGER.info(f'Processing {pipeline.__repr__()} data for {country}')
         result_df = pipeline.run()
         df = pd.concat([df, result_df], ignore_index=True)
 
     name = CONFIG['universityData']['name']
-    home_path = f"{os.environ['HOME']}{CONFIG['universityData']['loadPath']}{name}/{name}.csv"
+    home_path = f"{os.environ['HOME']}{CONFIG['universityData']['initial']['loadPath']}{name}/{name}.csv"
     LOGGER.info(f'Loading data to: {home_path}')
     LOGGER.info(f'Count rows in dataframe: {df.count()[0]}')
     to_csv_and_load(add_ts_col_to_df(df), home_path)

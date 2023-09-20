@@ -15,7 +15,7 @@ class APIScraper:
     - name (str): The name of the scraper.
     """
 
-    def __init__(self, url, name):
+    def __init__(self, url, name, params=None):
         """
         Initializes an APIScraper instance.
 
@@ -24,6 +24,7 @@ class APIScraper:
         - name (str): The name of the scraper.
         """
         self.url = url
+        self.params = params
         self.df = None
         self.name = name
 
@@ -36,7 +37,7 @@ class APIScraper:
         """
         return f'(\'{self.name}\')'
 
-    def extract_via_api(self):
+    def extract_via_api(self, **kwargs):
         """
         Extracts data from the API.
 
@@ -44,7 +45,7 @@ class APIScraper:
         requests.Response: The API response object.
         """
         try:
-            return requests.get(self.url)
+            return requests.get(self.url, params=kwargs['params'])
         except requests.exceptions.Timeout:
             # Maybe set up for a retry, or continue in a retry loop
             LOGGER.error('Timeout Exception')
@@ -73,6 +74,6 @@ class APIScraper:
         Returns:
         pd.DataFrame: The resulting DataFrame.
         """
-        article_text = self.extract_via_api()
+        article_text = self.extract_via_api(params=self.params)
         self.df = pd.DataFrame.from_dict(article_text.json())
         return self.df
