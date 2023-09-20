@@ -25,7 +25,7 @@ class DataProcessor:
             source (str): The source from which data will be extracted.
 
         Returns:
-            None
+            DataFrame: DataFrame.
         """
         if source == 'csv' and os.path.exists(kwargs['path']):
             self.df = self.spark.read.option("header", True).csv(path=kwargs['path'])
@@ -34,7 +34,7 @@ class DataProcessor:
         return self.df
 
     @staticmethod
-    def replace_null_values(df) -> DataFrame:
+    def replace_null_values(df: DataFrame) -> DataFrame:
         """
         Replace null values in a PySpark DataFrame with appropriate default values.
 
@@ -55,7 +55,7 @@ class DataProcessor:
         return df
 
     @staticmethod
-    def add_surrogate_key(df) -> DataFrame:
+    def add_surrogate_key(df: DataFrame) -> DataFrame:
         """
         Add a surrogate key column to a PySpark DataFrame.
 
@@ -70,18 +70,14 @@ class DataProcessor:
     def transform_data(self) -> DataFrame:
         """
         Transform the extracted data.
-
-        Args:
-            None
-
         Returns:
-            None
+            DataFrame: DataFrame.
         """
         if self.df is not None:
             self.df = self.df.transform(self.replace_null_values).transform(self.add_surrogate_key)
             return self.df
 
-    def load_data(self, destination: str, part_cols) -> None:
+    def load_data(self, destination: str, part_cols: list) -> None:
         """
         Load the transformed data into a destination.
 

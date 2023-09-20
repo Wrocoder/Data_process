@@ -1,8 +1,9 @@
 import pandas as pd
 import yaml
+from country_list import countries_for_language
 
 
-def get_config(path='config/config.yaml', location='local'):
+def get_config(path='config/config.yaml', location='local') -> dict:
     """
     Reads yaml config.
     :param path: path(key)
@@ -20,7 +21,7 @@ def get_config(path='config/config.yaml', location='local'):
         raise RuntimeError
 
 
-def to_csv_and_load(df, file_name):
+def to_csv_and_load(df: pd.DataFrame, file_name: str) -> None:
     """
     Loading data to csv format
     :param df: dataframe
@@ -33,7 +34,7 @@ def to_csv_and_load(df, file_name):
     df.to_csv(file_name, index=False)
 
 
-def add_ts_col_to_df(df):
+def add_ts_col_to_df(df: pd.DataFrame) -> pd.DataFrame:
     """
     Add timestamp columns to a DataFrame.
 
@@ -50,3 +51,13 @@ def add_ts_col_to_df(df):
     df['today_ts'] = pd.Timestamp.today()
     df['today_date'] = pd.to_datetime(df['today_ts'].dt.date)
     return df
+
+
+def get_countries() -> dict:
+    """
+    Retrieves a dictionary of countries.
+
+    Returns:
+    dict: A dictionary of countries.
+    """
+    return dict(countries_for_language('en'))

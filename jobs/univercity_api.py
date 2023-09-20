@@ -4,7 +4,7 @@ import pandas as pd
 
 from extraction.ApiScraper import APIScraper
 from helper.job_helper.decors import timing_and_size
-from helper.job_helper.job_helpers import get_config, to_csv_and_load, add_ts_col_to_df
+from helper.job_helper.job_helpers import get_config, to_csv_and_load, add_ts_col_to_df, get_countries
 from logger import LOGGER
 
 pd.options.display.max_colwidth = 500
@@ -15,9 +15,8 @@ pd.options.display.width = 2000
 
 @timing_and_size
 def uni_main():
-    countries = APIScraper.get_countries()
+    countries = get_countries()
     CONFIG = get_config()
-    LOGGER.info(CONFIG)
     df = pd.DataFrame()
 
     for code, country in countries.items():
