@@ -36,8 +36,10 @@ with DAG(dag_id="test_simple_bash_dag",
 
     t1 = BashOperator(bash_command=f"touch {file}", task_id="create_file")
 
-    t2 = BashOperator(bash_command=f'echo -e "{output_content}" > "{file}"', task_id="load_info")
+    t2 = BashOperator(bash_command=f'echo -e "{output_content}" > "{file}"',
+                      task_id="load_info")
 
-    t3 = BashOperator(bash_command=f"mv {file} {file_new}", task_id="change_file_name")
+    t3 = BashOperator(bash_command=f"mv {file} {file_new}",
+                      task_id="change_file_name")
 
     t1 >> t2 >> t3

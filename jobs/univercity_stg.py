@@ -13,7 +13,10 @@ def uni_main_stg():
                          path=CONFIG['universityData']['stg']['source'])
     LOGGER.info(f"Transforming data {process}")
     process.transform_data()
-    process.load_data(destination=CONFIG['universityData']['stg']['destination'], part_cols=['country', ])
+    process.load_data(destination=CONFIG['universityData']['stg']['destination'],
+                      part_cols=['country', ])
+
+    return process.__repr__()
 
 
 if __name__ == "__main__":

@@ -7,7 +7,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 
 sys.path.append(f"{os.environ['HOME']}/PycharmProjects/Data_process")
-from jobs import univercity_api, univercity_stg, geo_api
+from jobs import univercity_api, univercity_stg, geo_api  # noqa: E402
 
 # get the airflow.task logger
 task_logger = logging.getLogger("airflow.task")
@@ -30,7 +30,6 @@ with DAG(dag_id="dag_etl_university",
          schedule_interval=None,
          tags=["my_dags"],
          ) as dag:
-
     t1 = PythonOperator(
         task_id="extract_data_via_api_university",
         python_callable=univercity_api.uni_main,
@@ -39,6 +38,7 @@ with DAG(dag_id="dag_etl_university",
     t2 = PythonOperator(
         task_id="csv_to_parquet_processing",
         python_callable=univercity_stg.uni_main_stg,
+        do_xcom_push=True,
         dag=dag,
     )
     t3 = PythonOperator(

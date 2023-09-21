@@ -6,20 +6,20 @@ from logger import LOGGER
 
 
 class APIScraper:
-    """
-    A class for scraping data from an API.
+    """A class for scraping data from an API.
 
-    Attributes:
+    Attributes
+    ----------
     - url (str): The URL of the API.
     - df (pd.DataFrame): The resulting DataFrame.
     - name (str): The name of the scraper.
     """
 
     def __init__(self, url: str, name: str, params=None) -> None:
-        """
-        Initializes an APIScraper instance.
+        """Initializes an APIScraper instance.
 
         Args:
+        ----
         - url (str): The URL of the API.
         - name (str): The name of the scraper.
         """
@@ -29,19 +29,19 @@ class APIScraper:
         self.name = name
 
     def __repr__(self) -> str:
-        """
-        Returns a string representation of the APIScraper instance.
+        """Returns a string representation of the APIScraper instance.
 
-        Returns:
+        Returns
+        -------
         str: A string representation of the instance.
         """
         return f'(\'{self.name}\')'
 
     def extract_via_api(self, **kwargs):
-        """
-        Extracts data from the API.
+        """Extracts data from the API.
 
-        Returns:
+        Returns
+        -------
         requests.Response: The API response object.
         """
         try:
@@ -58,10 +58,10 @@ class APIScraper:
             raise SystemExit(e)
 
     def run(self) -> DataFrame:
-        """
-        Runs the scraper to extract data from the API.
+        """Runs the scraper to extract data from the API.
 
-        Returns:
+        Returns
+        -------
         pd.DataFrame: The resulting DataFrame.
         """
         article_text = self.extract_via_api(params=self.params)
