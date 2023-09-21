@@ -1,6 +1,6 @@
 import pandas as pd
 import requests
-from pyspark.sql import DataFrame
+from pandas import DataFrame
 
 from logger import LOGGER
 
