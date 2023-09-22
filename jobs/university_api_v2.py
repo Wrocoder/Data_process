@@ -5,7 +5,8 @@ import httpx
 import pandas as pd
 
 from helper.job_helper.decors import timing_and_size
-from helper.job_helper.job_helpers import get_config, to_csv_and_load, add_ts_col_to_df, get_countries
+from helper.job_helper.job_helpers import get_config, to_csv_and_load, \
+    add_ts_col_to_df, get_countries
 from logger import LOGGER
 
 pd.options.display.max_colwidth = 500
@@ -32,11 +33,13 @@ async def uni_main():
     countries = get_countries()
     CONFIG = get_config()
     main_url = CONFIG['universityData']['initial']['url']
-    as_resp = [fetch_data_from_api(f"{main_url}{country}") for code, country in countries.items()]
+    as_resp = [fetch_data_from_api(f"{main_url}{country}")
+               for code, country in countries.items()]
     results = await asyncio.gather(*as_resp)
     df = pd.concat([item for item in results], ignore_index=True)
     name = CONFIG['universityData']['name']
-    home_path = f"{os.environ['HOME']}{CONFIG['universityData']['initial']['loadPath']}{name}/{name}.csv"
+    home_path = f"{os.environ['HOME']}{CONFIG['universityData']['initial']['loadPath']}" \
+                f"{name}/{name}.csv"
     LOGGER.info(f'Row count: {df.count()[0]}. \n Loading data to: {home_path}')
     to_csv_and_load(add_ts_col_to_df(df), home_path)
 

@@ -3,7 +3,8 @@ from pandas.testing import assert_frame_equal
 import yaml
 import pytest
 from unittest.mock import mock_open, patch
-from helper.job_helper.job_helpers import get_config, to_csv_and_load, add_ts_col_to_df, get_countries
+from helper.job_helper.job_helpers import get_config, to_csv_and_load, \
+    add_ts_col_to_df, get_countries
 
 # Example test data
 example_config = {

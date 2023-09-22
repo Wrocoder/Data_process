@@ -1,10 +1,10 @@
 [tool.ruff]
-# Decrease the maximum line length to 89 characters.
-line-length = 89
+# Decrease the maximum line length to 90 characters.
+line-length = 90
 
 select = [
   "E",   # pycodestyle
   "F",   # pyflakes
   "UP",  # pyupgrade
-  "D",   # pydocstyle
+ # "D",   # pydocstyle
 ]

@@ -17,13 +17,15 @@ class TestDataProcessor(unittest.TestCase):
 
     def test_extract_data_csv(self):
         csv_path = 'data/test_data.csv'
-        test_df = self.spark.createDataFrame([("John", 'john@mail.abc'), ("Alice", None)], ["name", "mail"])
+        test_df = self.spark.createDataFrame([("John", 'jo@mail.abc'), ("Alice", None)],
+                                             ["name", "mail"])
         test_df.write.mode('overwrite').option("header", True).csv(csv_path)
         extracted_df = self.data_processor.extract_data('csv', path=csv_path)
         self.assertTrue(test_df.collect() == extracted_df.collect())
 
     def test_replace_null_values(self):
-        test_df = self.spark.createDataFrame([("John", None), (None, 25)], ["name", "age"])
+        test_df = self.spark.createDataFrame([("John", None), (None, 25)],
+                                             ["name", "age"])
         replaced_df = self.data_processor.replace_null_values(test_df)
         replaced_df.show()
 
@@ -32,12 +34,14 @@ class TestDataProcessor(unittest.TestCase):
         self.assertFalse(replaced_df.collect()[1]["age"] is None)
 
     def test_add_surrogate_key(self):
-        test_df = self.spark.createDataFrame([("John", 30), ("Alice", 25)], ["name", "age"])
+        test_df = self.spark.createDataFrame([("John", 30), ("Alice", 25)],
+                                             ["name", "age"])
         df_with_key = self.data_processor.add_surrogate_key(test_df)
         self.assertTrue("surrogate_key" in df_with_key.columns)
 
     def test_transform_data(self):
-        test_df = self.spark.createDataFrame([("John", None), (None, 25)], ["name", "age"])
+        test_df = self.spark.createDataFrame([("John", None), (None, 25)],
+                                             ["name", "age"])
         self.data_processor.df = test_df
         transformed_df = self.data_processor.transform_data()
 
@@ -47,7 +51,8 @@ class TestDataProcessor(unittest.TestCase):
         self.assertTrue("surrogate_key" in transformed_df.columns)
 
     def test_load_data(self):
-        test_df = self.spark.createDataFrame([("John", 30), ("Alice", 25)], ["name", "age"])
+        test_df = self.spark.createDataFrame([("John", 30), ("Alice", 25)],
+                                             ["name", "age"])
         self.data_processor.df = test_df
         destination = 'data/test_output.parquet'
         part_cols = ['name']
