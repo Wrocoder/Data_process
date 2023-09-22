@@ -1,5 +1,5 @@
 [tool.ruff]
-# Decrease the maximum line length to 79 characters.
+# Decrease the maximum line length to 89 characters.
 line-length = 89
 
 select = [
