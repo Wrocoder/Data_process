@@ -16,7 +16,7 @@ class TestDataProcessor(unittest.TestCase):
         self.spark.stop()
 
     def test_extract_data_csv(self):
-        csv_path = 'test_data.csv'
+        csv_path = 'data/test_data.csv'
         test_df = self.spark.createDataFrame([("John", 'john@mail.abc'), ("Alice", None)], ["name", "mail"])
         test_df.write.mode('overwrite').option("header", True).csv(csv_path)
         extracted_df = self.data_processor.extract_data('csv', path=csv_path)
@@ -49,7 +49,7 @@ class TestDataProcessor(unittest.TestCase):
     def test_load_data(self):
         test_df = self.spark.createDataFrame([("John", 30), ("Alice", 25)], ["name", "age"])
         self.data_processor.df = test_df
-        destination = 'test_output.parquet'
+        destination = 'data/test_output.parquet'
         part_cols = ['name']
         self.data_processor.load_data(destination, part_cols)
 
