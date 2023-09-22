@@ -46,12 +46,14 @@ class APIScraper:
         """
         try:
             return requests.get(self.url, params=kwargs['params'])
-        except requests.exceptions.Timeout:
+        except requests.exceptions.Timeout as e:
             # Maybe set up for a retry, or continue in a retry loop
             LOGGER.error('Timeout Exception')
-        except requests.exceptions.TooManyRedirects:
+            raise SystemExit(e)
+        except requests.exceptions.TooManyRedirects as e:
             # Tell the user their URL was bad and try a different one
             LOGGER.error('Too many redirects')
+            raise SystemExit(e)
         except requests.exceptions.RequestException as e:
             LOGGER.fatal(f'Exception: {e}')
             # catastrophic error.
