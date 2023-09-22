@@ -22,7 +22,8 @@ def geo_main():
     LOGGER.info(f'Processing {pipeline.__repr__()}')
     df = pipeline.run()
     name = CONFIG['geoData']['name']
-    home_path = f"{os.environ['HOME']}{CONFIG['geoData']['initial']['loadPath']}{name}/{name}.csv"
+    home_path = f"{os.environ['HOME']}{CONFIG['geoData']['initial']['loadPath']}" \
+                f"{name}/{name}.csv"
     LOGGER.info(f'Loading data to: {home_path}')
     LOGGER.info(f'Count rows in dataframe: {df.count()[0]}')
     to_csv_and_load(add_ts_col_to_df(df), home_path)

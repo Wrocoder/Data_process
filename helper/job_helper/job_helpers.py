@@ -4,30 +4,28 @@ from country_list import countries_for_language
 
 
 def get_config(path='config/config.yaml', location='local') -> dict:
-    """
-    Reads yaml config.
+    """Reads yaml config.
     :param path: path(key)
     :type path: str
     :param location: where your config.yaml is located
-    :type location: str
+    :type location: str.
 
     :return: yaml config.
     :rtype: dict
     """
     if location == 'local':
-        with open(path, 'r') as yaml_file:
+        with open(path) as yaml_file:
             return yaml.safe_load(yaml_file)
     else:
         raise RuntimeError
 
 
 def to_csv_and_load(df: pd.DataFrame, file_name: str) -> None:
-    """
-    Loading data to csv format
+    """Loading data to csv format.
     :param df: dataframe
     :type df: pandas dataframe
     :param file_name: name of file
-    :type file_name: str
+    :type file_name: str.
 
     :return: None
     """
@@ -35,17 +33,18 @@ def to_csv_and_load(df: pd.DataFrame, file_name: str) -> None:
 
 
 def add_ts_col_to_df(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Add timestamp columns to a DataFrame.
+    """Add timestamp columns to a DataFrame.
 
     This function adds two new columns to the input DataFrame:
     - 'today_ts': Contains the current timestamp.
     - 'today_date': Contains the current date extracted from the timestamp.
 
     Args:
+    ----
     - df (pd.DataFrame): The input DataFrame to which the columns will be added.
 
     Returns:
+    -------
     pd.DataFrame: The modified DataFrame with the added columns.
     """
     df['today_ts'] = pd.Timestamp.today()
@@ -54,10 +53,10 @@ def add_ts_col_to_df(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def get_countries() -> dict:
-    """
-    Retrieves a dictionary of countries.
+    """Retrieves a dictionary of countries.
 
-    Returns:
+    Returns
+    -------
     dict: A dictionary of countries.
     """
     return dict(countries_for_language('en'))
