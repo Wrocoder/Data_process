@@ -81,8 +81,22 @@ class DataProcessor:
             DataFrame: DataFrame.
         """
         if self.df is not None:
-            self.df = self.df.transform(self.replace_null_values)\
+            self.df = self.df.transform(self.replace_null_values) \
                 .transform(self.add_surrogate_key)
+            return self.df
+
+    def spec_transform(self, fun) -> DataFrame:
+        """Specific transformations the extracted data.
+
+        Args:
+        ----
+            fun (function): function with specific logic
+        Returns
+        -------
+            DataFrame: DataFrame.
+        """
+        if self.df is not None:
+            self.df = fun(self.df)
             return self.df
 
     def load_data(self, destination: str, part_cols: list) -> None:

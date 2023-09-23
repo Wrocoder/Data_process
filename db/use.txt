@@ -1,0 +1,24 @@
+Install:
+sudo dnf install postgresql-server postgresql-contrib
+sudo systemctl enable postgresql
+sudo postgresql-setup --initdb --unit postgresql
+sudo systemctl start postgresql
+
+CREATE USER admin WITH PASSWORD 'admin';
+CREATE DATABASE my_project OWNER admin;
+sudo systemctl start postgresql
+
+go to var/lib/pgsql/data/pg_hba.conf
+in METHOD column change ident to md5
+CTRL+S
+
+sudo systemctl stop postgresql
+sudo systemctl start postgresql
+
+connection dbeaver
+jdbc:postgresql://127.0.0.1:5432/my_project
+user admin
+password admin
+
+psql exit:
+CTRL+D
