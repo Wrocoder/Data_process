@@ -40,7 +40,7 @@ async def uni_main():
     name = CONFIG['universityData']['name']
     home_path = f"{os.environ['HOME']}{CONFIG['universityData']['initial']['loadPath']}" \
                 f"{name}/{name}.csv"
-    LOGGER.info(f'Row count: {df.count()[0]}. \n Loading data to: {home_path}')
+    LOGGER.info(f'Row count: {df.count()[1]}. \n Loading data to: {home_path}')
     to_csv_and_load(add_ts_col_to_df(df), home_path)
 
 
