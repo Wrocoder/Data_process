@@ -10,8 +10,9 @@ def spark():
         .appName("test_spec_logic") \
         .config("spark.sql.shuffle.partitions", "1") \
         .getOrCreate()
-    yield spark
-    spark.stop()
+    # yield spark
+    # spark.stop()
+    return spark
 
 
 @pytest.fixture
@@ -22,8 +23,9 @@ def input_df(spark):
         ("University C", "Location 1", "3,000", 30, 60, "3:1"),
     ]
 
-    columns = ["University_name", "Location", "Number_of_Studnet", "Number_of_student_per_staffs",
-               "International_Student", "Female_:_male_ratio"]
+    columns = ["University_name", "Location", "Number_of_Studnet",
+               "Number_of_student_per_staffs", "International_Student",
+               "Female_:_male_ratio"]
 
     return spark.createDataFrame(data, columns)
 
@@ -36,8 +38,9 @@ def expected_df(spark):
         ("University B", "Location 2", 2000, 20, 40, "2:1", 2000, 0.0),
     ]
 
-    columns = ["University_name", "Location", "Number_of_students", "Number_of_student_per_staffs",
-               "International_student_prctg", "Female_:_male_ratio", "sum_std", "percent_rank_std"]
+    columns = ["University_name", "Location", "Number_of_students",
+               "Number_of_student_per_staffs", "International_student_prctg",
+               "Female_:_male_ratio", "sum_std", "percent_rank_std"]
 
     return spark.createDataFrame(data, columns)
 

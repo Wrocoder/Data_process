@@ -2,7 +2,7 @@ import os
 
 import pandas as pd
 
-from extraction.ApiScraper import APIScraper
+from extraction.ApiProcess import APIProcessor
 from helper.job_helper.decors import timing_and_size
 from helper.job_helper.job_helpers import get_config, to_csv_and_load, \
     add_ts_col_to_df, get_countries
@@ -22,7 +22,7 @@ def uni_main():
 
     for code, country in countries.items():
         url = f"{CONFIG['universityData']['initial']['url']}{country}"
-        pipeline = APIScraper(url, CONFIG['universityData']['name'])
+        pipeline = APIProcessor(url, CONFIG['universityData']['name'])
         LOGGER.info(f'Processing {pipeline.__repr__()} data for {country}')
         result_df = pipeline.run()
         df = pd.concat([df, result_df], ignore_index=True)

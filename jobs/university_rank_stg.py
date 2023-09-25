@@ -10,12 +10,12 @@ from logger import LOGGER
 def uni_rank_stg():
     CONFIG = get_config()
     process = DataProcessor()
-    process.extract_data(source=CONFIG['universityRank']['stg']['format'],
-                         path=CONFIG['universityRank']['stg']['path'])
+    process.extract_data(source=CONFIG['universityRank']['initial']['format'],
+                         path=CONFIG['universityRank']['initial']['path'])
     LOGGER.info(f"Transforming data {process}")
     process.spec_transform(spec_logic)
     process.transform_data()
-    process.load_data(destination=CONFIG['universityRank']['dm']['path'],
+    process.load_data(destination=CONFIG['universityRank']['stg']['path'],
                       part_cols=['Location', ])
     return process.__repr__()
 

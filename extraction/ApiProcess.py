@@ -5,7 +5,7 @@ from pandas import DataFrame
 from logger import LOGGER
 
 
-class APIScraper:
+class APIProcessor:
     """A class for scraping data from an API.
 
     Attributes

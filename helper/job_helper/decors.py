@@ -51,3 +51,15 @@ def timing_and_size(func):
         return result
 
     return wrapper
+
+
+class Timing:
+    def __init__(self, func):
+        self.func = func
+
+    def __call__(self, *args, **kwargs):
+        start = time()
+        result = self.func(*args, **kwargs)
+        end = time()
+        LOGGER.info(f'Elapsed time: {end - start} seconds')
+        return result

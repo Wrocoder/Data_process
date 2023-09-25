@@ -60,3 +60,23 @@ def get_countries() -> dict:
     dict: A dictionary of countries.
     """
     return dict(countries_for_language('en'))
+
+
+def get_db_creds():
+    """
+    Get database credentials from the configuration.
+
+    Returns:
+    tuple: A tuple containing the database URL and properties (user, password, driver).
+    """
+    CONFIG = get_config()
+    url = CONFIG['db']['url']
+
+    properties = {
+        "user": CONFIG['db']['user'],
+        "password": CONFIG['db']['pass'],
+        "driver": CONFIG['db']['driver']
+    }
+
+    return url, properties
+

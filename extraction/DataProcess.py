@@ -99,7 +99,7 @@ class DataProcessor:
             self.df = fun(self.df)
             return self.df
 
-    def load_data(self, destination: str, part_cols: list) -> None:
+    def load_data(self, destination: str, part_cols=None) -> None:
         """Load the transformed data into a destination.
 
         Args:
@@ -111,6 +111,9 @@ class DataProcessor:
         -------
             None
         """
-        if self.df is not None:
+        if self.df is not None and part_cols is not None:
             LOGGER.info(f"Loading data to {destination}, partitioned by {part_cols}")
             self.df.write.partitionBy(*part_cols).mode("overwrite").parquet(destination)
+        elif self.df is not None and part_cols is None:
+            LOGGER.info(f"Loading data to {destination}")
+            self.df.write.mode("overwrite").parquet(destination)

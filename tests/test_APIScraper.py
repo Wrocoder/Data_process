@@ -4,7 +4,7 @@ from unittest.mock import Mock, patch
 import pandas as pd
 import requests
 
-from extraction import ApiScraper
+from extraction import ApiProcess
 
 
 class TestAPIScraper(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestAPIScraper(unittest.TestCase):
         self.url = 'https://example.com/api'
         self.name = 'Test Scraper'
         self.params = {'param1': 'value1', 'param2': 'value2'}
-        self.scraper = ApiScraper.APIScraper(self.url, self.name, self.params)
+        self.scraper = ApiProcess.APIProcessor(self.url, self.name, self.params)
 
     def test_init(self):
         self.assertEqual(self.scraper.url, self.url)
