@@ -7,7 +7,8 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 
 sys.path.append(f"{os.environ['HOME']}/PycharmProjects/Data_process")
-from jobs import univercity_api, univercity_stg, geo_api  # noqa: E402
+from jobs import univercity_api, univercity_stg, geo_api, geo_stg, geo_dm, university_dm, \
+    university_rank_dm, university_rank_stg  # noqa: E402
 
 # get the airflow.task logger
 task_logger = logging.getLogger("airflow.task")
@@ -36,15 +37,47 @@ with DAG(dag_id="dag_etl_university",
         dag=dag,
     )
     t2 = PythonOperator(
-        task_id="csv_to_parquet_processing",
-        python_callable=univercity_stg.uni_main_stg,
-        do_xcom_push=True,
-        dag=dag,
-    )
-    t3 = PythonOperator(
         task_id="extract_data_via_api_geo",
         python_callable=geo_api.geo_main,
         dag=dag,
     )
+    t3 = PythonOperator(
+        task_id="csv_to_parquet_processing_university",
+        python_callable=univercity_stg.uni_main_stg,
+        do_xcom_push=True,
+        dag=dag,
+    )
+    t4 = PythonOperator(
+        task_id="csv_to_parquet_processing_geo",
+        python_callable=geo_stg.geo_main_stg,
+        do_xcom_push=True,
+        dag=dag,
+    )
+    t5 = PythonOperator(
+        task_id="csv_to_parquet_processing_university_rank",
+        python_callable=university_rank_stg.uni_rank_stg,
+        do_xcom_push=True,
+        dag=dag,
+    )
+    t6 = PythonOperator(
+        task_id="csv_to_parquet_processing_geo_dm",
+        python_callable=geo_dm.geo_main_dm,
+        do_xcom_push=True,
+        dag=dag,
+    )
+    t7 = PythonOperator(
+        task_id="csv_to_parquet_processing_university_dm",
+        python_callable=university_dm.university_main_dm,
+        do_xcom_push=True,
+        dag=dag,
+    )
+    t8 = PythonOperator(
+        task_id="csv_to_parquet_processing_university_rank_dm",
+        python_callable=university_rank_dm.univ_rank_main_dm,
+        do_xcom_push=True,
+        dag=dag,
+    )
 
-    [t1, t3] >> t2
+    t1 >> t3 >> t7
+    t2 >> t4 >> t6
+    t5 >> t8
