@@ -79,5 +79,5 @@ class DMProcessor:
         # self.df.show()
         # self.df.printSchema()
         if self.df is not None:
-            LOGGER.info(f"Loading data to {table}, partitioned by {schema}")
+            LOGGER.info(f"Loading data to {table}, schema - {schema}")
             self.df.write.jdbc(url, table, mode="overwrite", properties=properties)
