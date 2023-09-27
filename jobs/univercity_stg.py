@@ -16,7 +16,7 @@ def uni_main_stg():
     process.load_data(destination=CONFIG['universityData']['stg']['destination'],
                       part_cols=['country', ])
 
-    return process.__repr__()
+    return repr(process)
 
 
 if __name__ == "__main__":

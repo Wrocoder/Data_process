@@ -17,7 +17,7 @@ def uni_rank_stg():
     process.transform_data()
     process.load_data(destination=CONFIG['universityRank']['stg']['path'],
                       part_cols=['Location', ])
-    return process.__repr__()
+    return repr(process)
 
 
 if __name__ == "__main__":

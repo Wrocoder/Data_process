@@ -15,7 +15,7 @@ def geo_main_dm():
     process.load_data(schema=CONFIG['geoData']['dm']['schema'],
                       table=CONFIG['geoData']['dm']['table'])
 
-    return process.__repr__()
+    return repr(process)
 
 
 if __name__ == "__main__":

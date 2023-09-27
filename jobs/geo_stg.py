@@ -14,7 +14,7 @@ def geo_main_stg():
     process.transform_data()
     process.load_data(destination=CONFIG['geoData']['stg']['destination'])
 
-    return process.__repr__()
+    return repr(process)
 
 
 if __name__ == "__main__":

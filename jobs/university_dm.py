@@ -15,7 +15,7 @@ def university_main_dm():
     process.load_data(schema=CONFIG['universityData']['dm']['schema'],
                       table=CONFIG['universityData']['dm']['table'])
 
-    return process.__repr__()
+    return repr(process)
 
 
 if __name__ == "__main__":
