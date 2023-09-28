@@ -47,5 +47,5 @@ def expected_df(spark):
 
 def test_spec_logic(input_df, expected_df):
     result_df = spec_logic(input_df)
-
-    assert result_df.collect() == expected_df.collect()
+    unnecessary_cols = ['today_ts', 'today_date']
+    assert result_df.drop(*unnecessary_cols).collect() == expected_df.collect()
