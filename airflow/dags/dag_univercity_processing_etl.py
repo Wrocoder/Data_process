@@ -4,6 +4,7 @@ import sys
 from datetime import datetime
 
 from airflow import DAG
+from airflow.operators.email import EmailOperator
 from airflow.operators.python import PythonOperator
 
 sys.path.append(f"{os.environ['HOME']}/PycharmProjects/Data_process")
@@ -78,6 +79,14 @@ with DAG(dag_id="dag_etl_university",
         dag=dag,
     )
 
-    t1 >> t3 >> t7
-    t2 >> t4 >> t6
-    t5 >> t8
+    email = EmailOperator(
+        task_id='send_email',
+        to='my_mail@gmail.com',
+        subject='Airflow Alert',
+        html_content=""" <h3>Email Test</h3> """,
+        dag=dag
+    )
+
+    t1 >> t3 >> t7 >> email
+    t2 >> t4 >> t6 >> email
+    t5 >> t8 >> email
